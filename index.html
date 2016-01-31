@@ -9,9 +9,24 @@
         <script src="script.js" charset="utf-8"></script>
     </head>
     <body>
-       
-        <input type="button" value="Load" onclick="callTimer()" />
-        <input type="button" value="STOP" onclick="clearTimer()" />
-            
+    	<div class ="container">
+    		<div class = "jumbotron">
+    			<center><h2>DSE</h2></center>
+    		</div>
+    		<div class = "container">
+
+				<div class="row">
+					<div class = "col-md-1">Minutes:</div>
+					<div class = "col-md-2">
+						<input type="number" class="form-control" onchange="realTime(this.value)" value ="1"/>	
+					</div>
+				</div></br>
+				<div class = "row">
+					<div class = "col-sm-1"></div>
+					<div class = "col-sm-1"><button type="submit" class="btn btn-success" onclick="callTimer()">Load</button></div>
+					<div class = "col-sm-1"><button type="submit" class="btn btn-danger" onclick = "clearTimer()">Stop </button></div>
+				</div>
+			</div>
+    	</div>
     </body>
 </html>

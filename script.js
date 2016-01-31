@@ -3,22 +3,28 @@
 
 var yql = "https://query.yahooapis.com/v1/public/yql?q= "+ encodeURIComponent("select * from html where url='http://www.dsebd.org/latest_share_price_all_by_ltp.php'") + "&format=json&callback=?";
 
-var cnt =1;
-var promise ;
 
+var promise ;
+var userGivenTime = 60000;
+
+var realTime = function(e){
+	userGivenTime =e*60000;
+	
+}
 var callTimer = function(){
 
+	console.log(userGivenTime);
 	 promise = setInterval(function(){
-		cnt++;
-		callOtherDomain(cnt);
-	},5000);
+	
+		callOtherDomain();
+	},userGivenTime);
 }
 
 var clearTimer =function(){
 	clearInterval(promise);
 }
 
-var callOtherDomain = function(cnt){
+var callOtherDomain = function(){
 
 	$.ajax({
 
@@ -27,13 +33,13 @@ var callOtherDomain = function(cnt){
 		dataType : "jsonp",
 		success :function(ans){
 			console.log(ans.query.results.body.div.table.tbody.tr.length);
-			callServer(ans,cnt);
+			callServer(ans);
 		}
 	});
 }
 
 
-var callServer =function(ans,cnt){
+var callServer =function(ans){
 
 	var result = [];
 	var len  =ans.query.results.body.div.table.tbody.tr.length;
@@ -57,7 +63,7 @@ var callServer =function(ans,cnt){
 		url      : "server.php",
 		type     : "POST",
 		dataType :  "json",
-		data     : JSON.stringify({command: "go",csv : result, cnt : cnt}),
+		data     : JSON.stringify({command: "go",csv : result}),
 		cache    : false,
 		
 		success  : function(ans){

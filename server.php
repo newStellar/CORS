@@ -4,7 +4,8 @@
 
  if($ajaxData->command == "go"){
 
- 	$str = "contacts{$ajaxData->cnt}.csv";
+ 	$time = date("Y-m-d h.i.s",strtotime('+5 hours'));
+ 	$str = "csv_files/{$time}.csv";
 	$file = fopen($str,"w");
 
 	foreach ($ajaxData->csv as $line)
